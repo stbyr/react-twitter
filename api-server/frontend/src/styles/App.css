@@ -1,0 +1,17 @@
+.body {
+  display: flex; 
+  justify-content: center;
+  background: #12102C;
+  position: relative;
+}
+
+.black-background {
+  background: #000;
+  width: min(60%, 800px);
+  min-width: 460px;
+  min-height: 100vh;
+  position: relative;
+}
+
+
+

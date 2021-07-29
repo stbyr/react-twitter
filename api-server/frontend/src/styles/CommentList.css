@@ -1,0 +1,39 @@
+.form-container {
+	width: 100%;
+	border: 1px solid #505761;
+}
+
+form {
+	width: 100%;
+}
+
+input {
+	width: 96%;
+	background: #656F85;
+	border: none;
+	border-radius: 5px;
+	color: #FFF;
+	font-size: 1.1em;
+	font-weight: 300;
+	padding: 8px 15px;
+	margin: 10px 10px 0 10px;
+}
+
+.form-second-line {
+	display: flex;
+	padding-bottom: 10px;
+}
+
+::placeholder { 
+  color: #FFF;
+  opacity: 1; 
+  font-size: 1.1em;
+  font-weight: 300;
+}
+
+:-ms-input-placeholder,
+::-ms-input-placeholder { 
+  color: #FFF;
+  font-size: 1.1em;
+  font-weight: 300;
+}

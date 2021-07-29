@@ -1,0 +1,73 @@
+.comment {
+  border: 1px solid #505761;
+  padding: 20px 20px 16px 20px;
+  position: relative;
+}
+
+.comment-main .author {
+  line-height: 1;
+  font-size: 0.8em;
+  color: #656F85;
+}
+
+.comment-main .body {
+  padding-top: 10px;
+  font-size: 1.1em;
+  font-weight: 300;
+  background: #000;
+  text-align: start;
+  display: block;
+}
+
+.num-votes {
+  display: flex;
+  flex-direction: column;
+}
+
+.num-votes p {
+  font-size: 0.9em;
+  font-weight: 300;
+  color: #656F85;
+  cursor: auto;
+  width: 50px;
+}
+
+.comment-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.comment-buttons div:hover {
+  cursor: pointer;
+}
+
+.edit-menu-open {
+  position: absolute;
+  border: 1px solid #505761;
+  width: 32%;
+  transform: translateY(35px);
+  z-index: 10;
+  background: #000;
+}
+
+.edit-menu-open ul {
+  list-style: none;
+}
+
+.edit-menu-open ul li {
+  padding: 10px;
+}
+
+.edit-menu-open ul li:hover {
+  background: #262B34;
+}

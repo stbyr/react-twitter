@@ -1,0 +1,80 @@
+.create-container {
+  margin: 0 auto;
+  width: 70%;
+  max-width: 560px;
+  min-width: 400px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  border: 1px solid #505761;
+  padding: 10px;
+}
+
+.link {
+  display: block;
+  width: 100%;
+  text-align: right;
+}
+
+.input-fields {
+  font-size: 1em;
+  font-weight: 300;
+  background: #000;
+}
+
+.input-body {
+  
+}
+
+.post-footer p {
+  font-size: 1em;
+  font-weight: 300;
+  color: #ed2515;
+  text-align: right;
+  padding-top: 6px;
+}
+
+input, textarea {
+  width: 96%;
+  background: #656F85;
+  border: none;
+  border-radius: 5px;
+  color: #FFF;
+  font-size: 1em;
+  font-weight: 300;
+  padding: 8px 15px;
+  margin: 10px 10px 0 10px;
+}
+
+::placeholder { 
+  color: #FFF;
+  opacity: 1; 
+  font-size: 1em;
+  font-weight: 300;
+}
+
+:-ms-input-placeholder,
+::-ms-input-placeholder { 
+  color: #FFF;
+  font-size: 1em;
+  font-weight: 300;
+}
+
+.send-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.send {
+  width: 36%;
+  height: 40px;
+  font-size: 1em;
+  background: #ed2515;
+  color: #650700;
+  border: 1px solid #650700;
+  border-radius: 5px;
+  margin: 10px 10px 0 0;
+}
+
+.send:hover {
+  cursor: pointer;
+}

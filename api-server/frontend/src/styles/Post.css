@@ -1,0 +1,81 @@
+.post-container {
+  position: relative;
+}
+
+.post {
+  border: 1px solid #505761;
+  padding: 20px 20px 16px 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 1.6em;
+}
+
+.post-main .author-date {
+  line-height: 1;
+  font-size: 0.8em;
+  color: #656F85;
+}
+
+.post-main .body {
+  padding-top: 20px;
+  font-size: 1.1em;
+  font-weight: 300;
+  background: #000;
+  text-align: start;
+  display: block;
+}
+
+.post-footer p {
+  font-size: 1.1em;
+  font-weight: 300;
+  color: #ed2515;
+  text-align: right;
+  padding-top: 6px;
+}
+
+.post-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.post-buttons div:hover {
+  cursor: pointer;
+}
+
+.edit-menu-open {
+  position: absolute;
+  border: 1px solid #505761;
+  z-index: 10;
+  background: #000;
+  top: 12px;
+  right: 20px;
+}
+
+.edit-menu-open ul {
+  list-style: none;
+}
+
+.edit-menu-open ul li {
+  padding: 10px;
+}
+
+.edit-menu-open ul li:hover {
+  background: #262B34;
+  cursor: pointer;
+}

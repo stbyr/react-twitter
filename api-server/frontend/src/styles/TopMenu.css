@@ -1,0 +1,31 @@
+.back {
+	display: flex;
+	width: 20%;
+}
+
+.back:hover {
+	cursor: pointer;
+}
+
+.back p {
+	font-size: 16px;
+	padding-top: 12px;
+	color: #ED2515;
+	font-weight: 300;
+}
+
+.login {
+	display: flex;
+}
+
+.top-menu-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.login p {
+	font-size: 16px;
+	padding: 12px 20px 10px 0px;
+	color: #ED2515;
+	font-weight: 300;
+}

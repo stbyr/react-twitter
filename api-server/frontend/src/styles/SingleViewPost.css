@@ -1,0 +1,8 @@
+.post-comments-container {
+	margin: 0 auto;
+	width: 70%;
+	max-width: 560px;
+	min-width: 400px;
+	margin-top: 60px;
+	margin-bottom: 60px;
+}
