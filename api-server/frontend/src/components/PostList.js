@@ -3,7 +3,7 @@ import Post from './Post.js'
 import '../styles/PostList.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllPostsByCategory } from '../actions/shared.js'
-import { token } from './App.js'
+import { token } from './App'
 
 function PostList () {
 	const dispatch = useDispatch()

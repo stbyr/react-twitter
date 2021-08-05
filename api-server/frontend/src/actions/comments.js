@@ -28,12 +28,14 @@ export function addNewComment (newComment) {
 	}
 }
 
-export function voteForComment (id, parentId, option) {
+export function voteForComment (id, parentId, option, user, toggle) {
 	return {
 		type: VOTE_FOR_COMMENT,
 		id,
 		parentId,
-		option
+		option, 
+		user, 
+		toggle
 	}
 }
 

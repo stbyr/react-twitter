@@ -46,21 +46,28 @@ export function comments (state = {}, action) {
 					    author: action.newComment.author,
 					    voteScore: 1,
 					    deleted: false,
-					    parentDeleted: false
+					    parentDeleted: false,
+					    likes: [],
+      					dislikes: [],
 					}])
 			}
 
 		case VOTE_FOR_COMMENT:
-			let filtered_object2 = state[action.parentId].filter(obj => obj.id === action.id)[0]
-			let unfiltered_objects2 = state[action.parentId].filter(obj => obj.id !== action.id).length ? state[action.parentId].filter(obj => obj.id !== action.id) : null 
+		let filtered_object2 = state[action.parentId].filter(obj => obj.id === action.id)[0]
+		let unfiltered_objects2 = state[action.parentId].filter(obj => obj.id !== action.id).length ? state[action.parentId].filter(obj => obj.id !== action.id) : null 
 
+		if (action.option === 'upVote' && !action.toggle) {
+			// username must be added to likes array
 			if (unfiltered_objects2) {
 				return {
 					...state,
 					[action.parentId]: 
 						unfiltered_objects2.concat({
 							...filtered_object2,
-							voteScore: action.option === 'upVote' ? (filtered_object2.voteScore + 1) : (filtered_object2.voteScore - 1)
+							voteScore: filtered_object2.voteScore + 1,
+							likes: filtered_object2['likes'].find(user => user === action.user) 
+								? filtered_object2['likes']
+								: filtered_object2['likes'].concat(action.user),
 						})
 				};
 			} else {
@@ -68,11 +75,85 @@ export function comments (state = {}, action) {
 					...state,
 					[action.parentId]: [{
 						...filtered_object2,
-						voteScore: action.option === 'upVote' ? (filtered_object2.voteScore + 1) : (filtered_object2.voteScore - 1)
+						voteScore: filtered_object2.voteScore + 1,
+						likes: filtered_object2['likes'].find(user => user === action.user) 
+							? filtered_object2['likes']
+							: filtered_object2['likes'].concat(action.user),
 					}]	
 				};
 			}
-			
+		} else if (action.option === 'upVote' && action.toggle) {
+			// username must be removed from dislikes array 
+			if (unfiltered_objects2) {
+				return {
+					...state,
+					[action.parentId]: 
+						unfiltered_objects2.concat({
+							...filtered_object2,
+							voteScore: filtered_object2.voteScore + 1,
+							dislikes: filtered_object2['dislikes'].filter(user => user !== action.user),
+						})
+				};
+			} else {
+				return {
+					...state,
+					[action.parentId]: [{
+						...filtered_object2,
+						voteScore: filtered_object2.voteScore + 1,
+						dislikes: filtered_object2['dislikes'].filter(user => user !== action.user),
+					}]	
+				};
+			}
+		} else if (action.option === 'downVote' && !action.toggle) {
+			// username must be added to dislikes array 
+			if (unfiltered_objects2) {
+				return {
+					...state,
+					[action.parentId]: 
+						unfiltered_objects2.concat({
+							...filtered_object2,
+							voteScore: filtered_object2.voteScore - 1,
+							dislikes: filtered_object2['dislikes'].find(user => user === action.user) 
+								? filtered_object2['dislikes']
+								: filtered_object2['dislikes'].concat(action.user),
+						})
+				};
+			} else {
+				return {
+					...state,
+					[action.parentId]: [{
+						...filtered_object2,
+						voteScore: filtered_object2.voteScore - 1,
+						dislikes: filtered_object2['dislikes'].find(user => user === action.user) 
+								? filtered_object2['dislikes']
+								: filtered_object2['dislikes'].concat(action.user),
+					}]	
+				};
+			}
+		} else if (action.option === 'downVote' && action.toggle) {
+			// username must be removed from likes array 
+			if (unfiltered_objects2) {
+				return {
+					...state,
+					[action.parentId]: 
+						unfiltered_objects2.concat({
+							...filtered_object2,
+							voteScore: filtered_object2.voteScore - 1,
+							likes: filtered_object2['likes'].filter(user => user !== action.user),
+						})
+				};
+			} else {
+				return {
+					...state,
+					[action.parentId]: [{
+						...filtered_object2,
+						voteScore: filtered_object2.voteScore - 1,
+						likes: filtered_object['likes'].filter(user => user !== action.user),
+					}]	
+				};
+			}
+		}	
+		break		
 
 		case DELETE_COMMENT: 
 			return {

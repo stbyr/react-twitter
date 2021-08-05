@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux'
 import { categories, activeCategory } from './categories'
-import { postsByCategory, postById, likes } from './posts'
+import { postsByCategory, postById } from './posts'
 import { comments } from './comments'
 import { sortByTime } from './sort'
+import { loggedUser } from './user'
 
 export default combineReducers({
 	categories,
@@ -10,6 +11,6 @@ export default combineReducers({
 	sortByTime, 
 	postsByCategory,
 	postById,
-	likes,
 	comments,
+	loggedUser,
 })

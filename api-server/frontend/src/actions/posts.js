@@ -36,13 +36,14 @@ export function deletePost (id, category) {
 	}
 }
 
-export function voteForPost (id, option, category, user) {
+export function voteForPost (id, option, category, user, toggle) {
 	return {
 		type: VOTE_FOR_POST,
 		id,
 		option,
 		category,
 		user,
+		toggle,
 	}
 }
 

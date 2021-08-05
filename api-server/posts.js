@@ -12,7 +12,9 @@ const defaultData = {
     category: 'react',
     voteScore: 6,
     deleted: false,
-    commentCount: 2
+    commentCount: 2, 
+    likes: [],
+    dislikes: [],
   },
   "6ni6ok3ym7mf1p33lnez": {
     id: '6ni6ok3ym7mf1p33lnez',
@@ -23,7 +25,9 @@ const defaultData = {
     category: 'redux',
     voteScore: -5,
     deleted: false,
-    commentCount: 0
+    commentCount: 0,
+    likes: [],
+    dislikes: [],
   }
 }
 
@@ -77,23 +81,41 @@ function add (token, post) {
       category: post.category,
       voteScore: 1,
       deleted: false,
-      commentCount: 0
+      commentCount: 0,
+      likes: [],
+      dislikes: [],
     }
 
     res(posts[post.id])
   })
 }
 
-function vote (token, id, option) {
+function vote (token, id, option, user, toggle) {
   return new Promise((res) => {
     let posts = getData(token)
     post = posts[id]
     switch(option) {
         case "upVote":
-            post.voteScore = post.voteScore + 1
+            if (!toggle) {
+              post.voteScore = post.voteScore + 1
+              post.likes = post['likes'].find(item => item === user)
+                ? post['likes']
+                : post['likes'].concat(user)
+            } else if (toggle) {
+              post.voteScore = post.voteScore + 1
+              post.dislikes = post['dislikes'].filter(item => item !== user)
+            }
             break
         case "downVote":
-            post.voteScore = post.voteScore - 1
+            if (!toggle) {
+              post.voteScore = post.voteScore - 1
+              post.dislikes = post['dislikes'].find(item => item === user)
+                ? post['dislikes']
+                : post['dislikes'].concat(user)
+            } else if (toggle) {
+              post.voteScore = post.voteScore - 1
+              post.likes = post['likes'].filter(item => item !== user)
+            }
             break
         default:
             console.log(`posts.vote received incorrect parameter: ${option}`)

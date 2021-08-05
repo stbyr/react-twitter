@@ -6,6 +6,18 @@ export const fetchCategories = (token) => axios.get('http://localhost:3001/categ
 	}
 });
 
+export const fetchUser = (token) => axios.get('http://localhost:3001/user', {
+	headers: {
+		'Authorization': token
+	}
+});
+
+export const setUser = (token, user) => axios.post('http://localhost:3001/user', { user }, {
+	headers: {
+		'Authorization': token
+	}
+});
+
 /* 
 export const fetchPosts = (token) => axios.get('http://localhost:3001/posts', {
 	headers: {
@@ -50,7 +62,7 @@ export const deletePost = (token, id) => axios.delete(`http://localhost:3001/pos
 	} 
 })
 
-export const voteForPost = (token, id, option) => axios.post(`http://localhost:3001/posts/${id}/`, { option }, {
+export const voteForPost = (token, id, option, user, toggle) => axios.post(`http://localhost:3001/posts/${id}/`, { option, user, toggle }, {
 		headers: {
 			'Authorization': token
 		}
@@ -76,7 +88,7 @@ export const postNewComment = (token, newComment) => axios.post('http://localhos
 	}
 )
 
-export const voteForComment = (token, id, option) => axios.post(`http://localhost:3001/comments/${id}/`, { option }, {
+export const voteForComment = (token, id, option, user, toggle) => axios.post(`http://localhost:3001/comments/${id}/`, { option, user, toggle }, {
 		headers: {
 			'Authorization': token
 		}

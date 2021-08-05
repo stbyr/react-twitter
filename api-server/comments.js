@@ -12,7 +12,9 @@ const defaultData = {
     author: 'thingtwo',
     voteScore: 6,
     deleted: false,
-    parentDeleted: false
+    parentDeleted: false,
+    likes: [],
+    dislikes: [],
   },
   "8tu4bsun805n8un48ve89": {
     id: '8tu4bsun805n8un48ve89',
@@ -22,7 +24,9 @@ const defaultData = {
     author: 'thingone',
     voteScore: -5,
     deleted: false,
-    parentDeleted: false
+    parentDeleted: false,
+    likes: [],
+    dislikes: [],
   }
 }
 
@@ -66,7 +70,9 @@ function add (token, comment) {
       parentId: comment.parentId,
       voteScore: 1,
       deleted: false,
-      parentDeleted: false
+      parentDeleted: false,
+      likes: [],
+      dislikes: [],
     }
 
     posts.incrementCommentCounter(token, comment.parentId, 1)
@@ -74,16 +80,32 @@ function add (token, comment) {
   })
 }
 
-function vote (token, id, option) {
+function vote (token, id, option, user, toggle) {
   return new Promise((res) => {
     let comments = getData(token)
     comment = comments[id]
     switch(option) {
         case "upVote":
-            comment.voteScore = comment.voteScore + 1
+            if (!toggle) {
+              comment.voteScore = comment.voteScore + 1
+              comment.likes = comment['likes'].find(item => item === user)
+                ? comment['likes']
+                : comment['likes'].concat(user)
+            } else if (toggle) {
+              comment.voteScore = comment.voteScore + 1
+              comment.dislikes = comment['dislikes'].filter(item => item !== user)
+            }
             break
         case "downVote":
-            comment.voteScore = comment.voteScore - 1
+            if (!toggle) {
+              comment.voteScore = comment.voteScore - 1
+              comment.dislikes = comment['dislikes'].find(item => item === user)
+                ? comment['dislikes']
+                : comment['dislikes'].concat(user)
+            } else if (toggle) {
+              comment.voteScore = comment.voteScore - 1
+              comment.likes = comment['likes'].filter(item => item !== user)
+            }
             break
         default:
             console.log(`comments.vote received incorrect parameter: ${option}`)

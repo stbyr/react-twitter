@@ -1,4 +1,3 @@
-import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import '../styles/App.css'
 import Home from './Home.js'
@@ -7,9 +6,9 @@ import CreatePost from './CreatePost.js'
 import EditPost from './EditPost.js'
 import EditComment from './EditComment.js'
 import TopMenu from './TopMenu.js'
+import Login from './Login.js'
 
-export const token = 'tokenXY'
-export const currentUser = 'stefaniebeyer123'
+export const token = 'stefaniebeyer1234'
 
 export function App () {
   	return (
@@ -23,6 +22,7 @@ export function App () {
 			      		<Route path="/posts/:id" component={SingleViewPost} />
 			      		<Route path="/edit/post/:id" component={EditPost} />
 			      		<Route path="/edit/comment/:parentId/:id" component={EditComment} />
+			      		<Route path="/login" component={Login} />
 			      	</Switch>
 			    </div>
 		    </div>

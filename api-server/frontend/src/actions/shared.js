@@ -2,6 +2,7 @@ import * as api from '../api'
 import { getCategories } from './categories.js'
 import { getPostsByCategory, getPostById, addNewPost, deletePost, voteForPost, editExistingPost } from './posts.js'
 import { getCommentsByPost, editExistingComment, addNewComment, voteForComment, deleteComment } from './comments.js'
+import { getLoggedUser, setLoggedUser } from './user.js'
 
 export function getAllCategories (token) {
 	return (dispatch) => {
@@ -14,6 +15,31 @@ export function getAllCategories (token) {
 			})
 	}
 }
+
+export function getUser (token) {
+	return (dispatch) => {
+		return api.fetchUser(token)
+			.then(({ data }) => {
+				dispatch(getLoggedUser(data))
+			}) 
+			.catch((e) => {
+				console.log(e.message)
+			})
+	}
+}
+
+export function setUser (token, user) {
+	return (dispatch) => {
+		return api.setUser(token, user)
+			.then(() => {
+				dispatch(setLoggedUser(user))
+			}) 
+			.catch((e) => {
+				console.log(e.message)
+			})
+	}
+}
+
 /*
 export function getAllPosts (token) {
 	return (dispatch) => {
@@ -99,11 +125,11 @@ export function deleteOnePost (token, id, category) {
 	}
 }
 
-export function votePost (token, id, option, category, user) {
+export function votePost (token, id, option, category, user, toggle) {
 	return (dispatch) => {
-		return api.voteForPost(token, id, option)
+		return api.voteForPost(token, id, option, user, toggle)
 			.then(() => {
-				dispatch(voteForPost(id, option, category, user))
+				dispatch(voteForPost(id, option, category, user, toggle))
 			})
 			.catch((e) => {
 				console.log(e.message)
@@ -147,11 +173,11 @@ export function addOneNewComment (token, newComment) {
 	}
 }
 
-export function voteComment (token, id, parentId, option) {
+export function voteComment (token, id, parentId, option, user, toggle) {
 	return (dispatch) => {
-		return api.voteForComment(token, id, option)
+		return api.voteForComment(token, id, option, user, toggle)
 			.then(() => {
-				dispatch(voteForComment(id, parentId, option))
+				dispatch(voteForComment(id, parentId, option, user, toggle))
 			})
 			.catch((e) => {
 				console.log(e.message)

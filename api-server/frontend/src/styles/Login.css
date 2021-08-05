@@ -1,0 +1,33 @@
+.create-container h1 {
+	margin: 30px 10px 0px 10px;
+	text-align: center;
+	color: #ED2515;
+}
+
+.create-container h2 {
+	margin: 0px 10px 50px 10px;
+	text-align: center;
+	font-weight: 300;
+	font-size: 20px;
+	color: #656F85;
+}
+
+.input-field-login {
+	display: flex;
+	justify-content: center;
+}
+
+.input-field-login input {
+	margin-bottom: 20px;
+	width: 60%;
+}
+
+.link-login {
+	display: block;
+  	width: 100%;
+  	text-align: center;
+}
+
+.link-login button {
+	margin: 0px 0px 30px 10px;
+}

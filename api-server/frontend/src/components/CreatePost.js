@@ -7,15 +7,11 @@ import { v4 as uuidv4 } from 'uuid'
 import { token } from './App'
 
 function CreatePost (props) {
-	const [ inputName, setInputName ] = useState('')
 	const [ inputTitle, setInputTitle ] = useState('')
 	const [ inputBody, setInputBody ] = useState('')
 	const dispatch = useDispatch()
 	const category = useSelector((state) => state.activeCategory)
-
-	const handleChangeName = (event) => {
-		setInputName(event.target.value) 
-	}
+	const user = useSelector((state) => state.loggedUser)
 
 	const handleChangeTitle = (event) => {
 		setInputTitle(event.target.value) 
@@ -31,7 +27,7 @@ function CreatePost (props) {
 		    timestamp: Date.now(), 
 		    title: inputTitle,
 		    body: inputBody,
-		    author: inputName,
+		    author: user,
 		    category: category,
 		}))
 	}
@@ -39,12 +35,6 @@ function CreatePost (props) {
 	return (
 		<div className="create-container">
             <div className="input-fields">
-                <input 
-					type="text" 
-					placeholder="Insert your name ..."
-					value={inputName} 
-					onChange={handleChangeName} 
-				/>
                 <input 
 					type="text" 
 					placeholder="Insert title ..."

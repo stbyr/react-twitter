@@ -33,7 +33,7 @@
   padding-top: 6px;
 }
 
-input, textarea {
+.input-fields input, textarea {
   width: 96%;
   background: #656F85;
   border: none;

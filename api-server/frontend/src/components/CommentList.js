@@ -8,9 +8,9 @@ import { token } from './App'
 
 function CommentList (props) {
 	const [ formText, setFormText ] = useState('')
-	const [ formName, setFormName ] = useState('')
 	const { id } = props
 	const dispatch = useDispatch()
+	const user = useSelector((state) => state.loggedUser)
 
 	useEffect(() => {
         dispatch(getAllCommentsByPost(token, id))
@@ -23,20 +23,17 @@ function CommentList (props) {
 		setFormText(event.target.value) 
 	}
 
-	const handleChangeName = (event) => {
-		setFormName(event.target.value) 
-	}
-
-	const submit = () => {
-		dispatch(addOneNewComment(token, {
-			id: uuidv4(),
-			timestamp: Date.now(),
-			body: formText,
-			author: formName,
-			parentId: id,
-		}))
-		setFormText('')
-		setFormName('')
+	const submit = (event) => {
+		if (event.key === "Enter") {
+			dispatch(addOneNewComment(token, {
+				id: uuidv4(),
+				timestamp: Date.now(),
+				body: formText,
+				author: user,
+				parentId: id,
+			}))
+			setFormText('')
+		}
 	}
 
 	return (
@@ -47,16 +44,8 @@ function CommentList (props) {
 					placeholder="Write a comment ..."
 					value={formText} 
 					onChange={handleChangeComment} 
+					onKeyPress={submit}
 				/>
-				<div className="form-second-line">
-					<input 
-						type="text" 
-						placeholder="Write your name ..."
-						value={formName} 
-						onChange={handleChangeName} 
-					/>
-					<button className="send" onClick={submit}>Publish</button>
-				</div>
 			</div>
 			{comments[id] && comments[id].map((comment) => (
 				<Comment key={comment.id} id={comment.id} parentId={id} />

@@ -7,6 +7,7 @@ const config = require('./config')
 const categories = require('./categories')
 const posts = require('./posts')
 const comments = require('./comments')
+const user = require('./user')
 
 const app = express()
 
@@ -208,9 +209,9 @@ app.delete('/posts/:id', (req, res) => {
 })
 
 app.post('/posts/:id', bodyParser.json(), (req, res) => {
-    const { option } = req.body
+    const { option, user, toggle } = req.body
     const id = req.params.id
-    posts.vote(req.token, id, option)
+    posts.vote(req.token, id, option, user, toggle)
       .then(
           (data) => res.send(data),
           (error) => {
@@ -288,8 +289,8 @@ app.post('/comments', bodyParser.json(), (req, res) => {
 })
 
 app.post('/comments/:id', bodyParser.json(), (req, res) => {
-    const { option } = req.body
-    comments.vote(req.token, req.params.id, option)
+    const { option, user, toggle } = req.body
+    comments.vote(req.token, req.params.id, option, user, toggle)
       .then(
           (data) => res.send(data),
           (error) => {
@@ -303,6 +304,32 @@ app.post('/comments/:id', bodyParser.json(), (req, res) => {
 
 app.delete('/comments/:id', (req, res) => {
     comments.disable(req.token, req.params.id)
+      .then(
+          (data) => res.send(data),
+          (error) => {
+              console.error(error)
+              res.status(500).send({
+                  error: 'There was an error.'
+              })
+          }
+      )
+})
+
+app.get('/user', (req, res) => {
+    user.getUser(req.token)
+      .then(
+          (data) => res.send(data),
+          (error) => {
+              console.error(error)
+              res.status(500).send({
+                  error: 'There was an error.'
+              })
+          }
+      )
+})
+
+app.post('/user', bodyParser.json(), (req, res) => {
+    user.setUser(req.token, req.body)
       .then(
           (data) => res.send(data),
           (error) => {
