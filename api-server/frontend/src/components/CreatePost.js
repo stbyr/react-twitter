@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import '../styles/CreatePost.css'
-import { addOneNewPost } from '../actions/shared.js'
+import { addOneNewPost } from '../actions/shared'
 import { v4 as uuidv4 } from 'uuid'
 import { token } from './App'
+import Redirecter from './Redirect'
 
 function CreatePost (props) {
 	const [ inputTitle, setInputTitle ] = useState('')
@@ -34,6 +35,7 @@ function CreatePost (props) {
 
 	return (
 		<div className="create-container">
+            <Redirecter referrer="/create-post" />
             <div className="input-fields">
                 <input 
 					type="text" 

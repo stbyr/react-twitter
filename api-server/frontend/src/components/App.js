@@ -1,14 +1,16 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import '../styles/App.css'
-import Home from './Home.js'
-import SingleViewPost from './SingleViewPost.js'
-import CreatePost from './CreatePost.js'
-import EditPost from './EditPost.js'
-import EditComment from './EditComment.js'
-import TopMenu from './TopMenu.js'
-import Login from './Login.js'
+import Home from './Home'
+import SingleViewPost from './SingleViewPost'
+import CreatePost from './CreatePost'
+import EditPost from './EditPost'
+import EditComment from './EditComment'
+import TopMenu from './TopMenu'
+import Login from './Login'
+import NotFound from './NotFound'
 
-export const token = 'stefaniebeyer1234'
+export const token = 'XYZ'
+localStorage.setItem('token', token)
 
 export function App () {
   	return (
@@ -23,11 +25,11 @@ export function App () {
 			      		<Route path="/edit/post/:id" component={EditPost} />
 			      		<Route path="/edit/comment/:parentId/:id" component={EditComment} />
 			      		<Route path="/login" component={Login} />
+			      		<Route path="/notfound" component={NotFound} />
+					    <Route component={NotFound} />
 			      	</Switch>
 			    </div>
 		    </div>
 	    </Router>
   	);
 }
-
-

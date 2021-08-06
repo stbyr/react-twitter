@@ -1,6 +1,7 @@
 .back {
 	display: flex;
 	width: 20%;
+	z-index: 1;
 }
 
 .back:hover {
@@ -16,6 +17,8 @@
 
 .login {
 	display: flex;
+	background: #12102C;
+	z-index: 1;
 }
 
 .top-menu-container {
@@ -35,4 +38,12 @@
 	padding: 12px 20px 10px 50px;
 	color: #ED2515;
 	font-weight: 300;
+}
+
+.helper {
+	position: absolute;
+	height: 46px;
+	width: 100%;
+	background: #12102C;
+	z-index: 0;
 }

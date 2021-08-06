@@ -2,17 +2,32 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import '../styles/CreatePost.css'
-import { editPost } from '../actions/shared.js'
+import { editPost } from '../actions/shared'
 import { token } from './App'
+import Redirecter from './Redirect'
+import NotFound from './NotFound'
 
 function EditPost (props) {
 	const dispatch = useDispatch()
+	const user = localStorage.getItem('user')
 	const category = useSelector((state) => state.activeCategory)
 	const { id } = props.match.params 
-	const postInfo = useSelector((state) => state.postById[id])
+	const posts = Object.keys(useSelector((state) => state.postById))
+	const post = posts.find(post => post === id)
+	const helper = {
+		title: 'title',
+		body: 'body',
+	}
+  	const locationState = props.location.state ? props.location.state : helper
+  	const { title, body } = locationState
+  	const [ inputTitle, setInputTitle ] = useState(title)
+	const [ inputBody, setInputBody ] = useState(body)
 
-	const [ inputTitle, setInputTitle ] = useState(postInfo.title)
-	const [ inputBody, setInputBody ] = useState(postInfo.body)
+	if (!post && user) {
+		return <NotFound />
+	} else if (!post && !user) {
+		return <Redirecter referrer="/notfound" />
+	} 
 
 	const handleChangeTitle = (event) => {
 		setInputTitle(event.target.value) 
@@ -31,6 +46,7 @@ function EditPost (props) {
 
 	return (
 		<div className="create-container">
+            <Redirecter referrer={`/edit/post/${id}`} />
             <div className="input-fields">
                 <input 
 					type="text" 

@@ -32,7 +32,7 @@ function TopMenu () {
 				    }} />
 				    <p>Home</p>
 			    </Link>
-			    ) : <BiLeftArrowAlt style={{ fill: 'black' }} /> 
+			    ) : <BiLeftArrowAlt style={{ fill: '#ED2515' }} /> 
 			}
 		    { location.pathname !== "/login" ? (
 			    <div className="login">
@@ -48,6 +48,7 @@ function TopMenu () {
 			    </div>
 			    ) : null 
 			}
+			<div className="helper"></div>
 	    </div>
   	);
 }

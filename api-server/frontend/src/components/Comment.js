@@ -8,7 +8,7 @@ import { voteComment, deleteOneComment } from '../actions/shared.js'
 import { token } from './App'
 
 function Comment (props) {
-	const [ editMenuHidden, setEditMenuHidden ] = useState(true)
+    const [ editMenuHidden, setEditMenuHidden ] = useState(true)
     const [ likeActive, setLikeActive ] = useState(false)
     const [ dislikeActive, setDislikeActive ] = useState(false)
     const dispatch = useDispatch()
@@ -16,6 +16,8 @@ function Comment (props) {
     const comments = useSelector((state) => state.comments)
     const comment = comments[parentId].find((obj) => obj.id === id)
     const currentUser = useSelector((state) => state.loggedUser)
+    const postIds = Object.keys(comments)
+    const commentIds = Object.values(comments)[0]
 
     const date = comment ? new Date(comment.timestamp).toLocaleDateString("en-US") : null 
     const time = comment ? new Date(comment.timestamp).toLocaleTimeString("en-US") : null 
@@ -83,7 +85,7 @@ function Comment (props) {
     }
 
     return (
-		<div className="comment">
+        <div className="comment">
             <div className="comment-buttons">
             	<div className="num-votes">
             		<p>{ comment && comment.voteScore } { comment.voteScore === 1 ? 'vote' : 'votes' }</p>
@@ -132,9 +134,14 @@ function Comment (props) {
             </div>
             <div className="edit-menu-open" hidden={editMenuHidden}>
                 <ul>
-                    <Link to={`/edit/comment/${parentId}/${id}`}>
-                        <li>Edit comment</li>
-                    </Link>
+                    { postIds.find(id => id === parentId) && commentIds.find(comment => comment.id === id) 
+                        ? <Link to={`/edit/comment/${parentId}/${id}`}>
+                            <li>Edit comment</li>
+                        </Link>
+                        : <Link to="notfound">
+                            <li>Edit comment</li>
+                        </Link>
+                    }
                     <li onClick={onDelete}>Delete comment</li>
                 </ul>
             </div>

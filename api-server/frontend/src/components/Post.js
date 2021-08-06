@@ -13,6 +13,7 @@ function Post (props) {
     const [ dislikeActive, setDislikeActive ] = useState(false)
     const dispatch = useDispatch()
     const postId = props.id ? props.id : null 
+    const postIds = Object.keys(useSelector((state) => state.postById))
     
     const postInfo = useSelector((state) => state.postById)
     const post = postInfo[postId]
@@ -145,9 +146,21 @@ function Post (props) {
 
             <div className="edit-menu-open" hidden={editMenuHidden}>
                 <ul>
-                    <Link to={`/edit/post/${postId}`}>
+                { postIds.find(id => id === postId) 
+                    ? <Link to={{
+                        pathname: `/edit/post/${postId}`,
+                        state: {
+                            title: post.title,
+                            body: post.body,
+                        }
+                    }}>
                         <li>Edit post</li>
                     </Link>
+                    : <Link to="notfound">
+                        <li>Edit post</li>
+                    </Link>
+                }
+                        
                     <li onClick={onDelete}>Delete post</li>
                 </ul>   
             </div>
