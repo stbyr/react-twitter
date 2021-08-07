@@ -7,25 +7,25 @@ const defaultData = {
   user: ''
 }
 
-function getData (token) {
-  let data = db[token]
+function getData () {
+  let data = db['token']
   if (data == null) {
-    data = db[token] = clone(defaultData)
+    data = db['token'] = clone(defaultData)
   }
   return data
 }
 
-function getUser (token) {
+function getUser () {
   return new Promise((res) => {
-    const user = getData(token)
+    const user = getData()
     const result = user['user']
     res(result)
   })
 }
 
-function setUser (token, user) {
+function setUser (user) {
   return new Promise((res) => {
-    const defaultUser = getData(token)
+    const defaultUser = getData()
     defaultUser['user'] = user['user'] 
     res(defaultUser['user'])
   })

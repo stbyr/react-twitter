@@ -4,9 +4,9 @@ import { getPostsByCategory, getPostById, addNewPost, deletePost, voteForPost, e
 import { getCommentsByPost, editExistingComment, addNewComment, voteForComment, deleteComment } from './comments.js'
 import { getLoggedUser, setLoggedUser } from './user.js'
 
-export function getAllCategories (token) {
+export function getAllCategories () {
 	return (dispatch) => {
-		return api.fetchCategories(token)
+		return api.fetchCategories()
 			.then(({ data }) => {
 				dispatch(getCategories(data))
 			})
@@ -16,9 +16,9 @@ export function getAllCategories (token) {
 	}
 }
 
-export function getUser (token) {
+export function getUser () {
 	return (dispatch) => {
-		return api.fetchUser(token)
+		return api.fetchUser()
 			.then(({ data }) => {
 				dispatch(getLoggedUser(data))
 			}) 
@@ -28,9 +28,9 @@ export function getUser (token) {
 	}
 }
 
-export function setUser (token, user) {
+export function setUser (user) {
 	return (dispatch) => {
-		return api.setUser(token, user)
+		return api.setUser(user)
 			.then(() => {
 				dispatch(setLoggedUser(user))
 			}) 
@@ -40,9 +40,9 @@ export function setUser (token, user) {
 	}
 } 
 
-export function getAllPostsByCategory (token, category) {
+export function getAllPostsByCategory (category) {
 	return (dispatch) => {
-		return api.fetchPostsByCategory(token, category)
+		return api.fetchPostsByCategory(category)
 			.then(({ data }) => {
 				dispatch(getPostsByCategory(data, category))
 			})
@@ -52,9 +52,9 @@ export function getAllPostsByCategory (token, category) {
 	}
 }
 
-export function getOnePostById (token, id) {
+export function getOnePostById (id) {
 	return (dispatch) => {
-		return api.fetchPostById(token, id)
+		return api.fetchPostById(id)
 			.then(({ data }) => {
 				dispatch(getPostById(data, id))
 			})
@@ -64,9 +64,9 @@ export function getOnePostById (token, id) {
 	}
 }
 
-export function getAllCommentsByPost (token, parentId) {
+export function getAllCommentsByPost (parentId) {
 	return (dispatch) => {
-		return api.fetchCommentsByPost(token, parentId)
+		return api.fetchCommentsByPost(parentId)
 			.then(({ data }) => {
 				dispatch(getCommentsByPost(data, parentId))
 			})
@@ -76,9 +76,9 @@ export function getAllCommentsByPost (token, parentId) {
 	}
 }
 
-export function addOneNewPost (token, newPost) {
+export function addOneNewPost (newPost) {
 	return (dispatch) => {
-		return api.postNewPost(token, newPost)
+		return api.postNewPost(newPost)
 			.then(() => {
 				dispatch(addNewPost(newPost))
 			})
@@ -88,9 +88,9 @@ export function addOneNewPost (token, newPost) {
 	}
 }
 
-export function deleteOnePost (token, id, category) {
+export function deleteOnePost (id, category) {
 	return (dispatch) => {
-		return api.deletePost(token, id)
+		return api.deletePost(id)
 			.then(() => {
 				dispatch(deletePost(id, category))
 			})
@@ -100,9 +100,9 @@ export function deleteOnePost (token, id, category) {
 	}
 }
 
-export function votePost (token, id, option, category, user, toggle) {
+export function votePost (id, option, category, user, toggle) {
 	return (dispatch) => {
-		return api.voteForPost(token, id, option, user, toggle)
+		return api.voteForPost(id, option, user, toggle)
 			.then(() => {
 				dispatch(voteForPost(id, option, category, user, toggle))
 			})
@@ -112,9 +112,9 @@ export function votePost (token, id, option, category, user, toggle) {
 	}
 }
 
-export function editPost (token, id, post, category) {
+export function editPost (id, post, category) {
 	return (dispatch) => {
-		return api.editPost(token, id, post)
+		return api.editPost(id, post)
 			.then(() => {
 				dispatch(editExistingPost(id, post, category))
 			})
@@ -124,9 +124,9 @@ export function editPost (token, id, post, category) {
 	}
 }
 
-export function editComment (token, id, parentId, comment) {
+export function editComment (id, parentId, comment) {
 	return (dispatch) => {
-		return api.editComment(token, id, comment)
+		return api.editComment(id, comment)
 			.then(() => {
 				dispatch(editExistingComment(id, parentId, comment))
 			})
@@ -136,9 +136,9 @@ export function editComment (token, id, parentId, comment) {
 	}
 }
 
-export function addOneNewComment (token, newComment) {
+export function addOneNewComment (newComment) {
 	return (dispatch) => {
-		return api.postNewComment(token, newComment)
+		return api.postNewComment(newComment)
 			.then(() => {
 				dispatch(addNewComment(newComment))
 			})
@@ -148,9 +148,9 @@ export function addOneNewComment (token, newComment) {
 	}
 }
 
-export function voteComment (token, id, parentId, option, user, toggle) {
+export function voteComment (id, parentId, option, user, toggle) {
 	return (dispatch) => {
-		return api.voteForComment(token, id, option, user, toggle)
+		return api.voteForComment(id, option, user, toggle)
 			.then(() => {
 				dispatch(voteForComment(id, parentId, option, user, toggle))
 			})
@@ -160,9 +160,9 @@ export function voteComment (token, id, parentId, option, user, toggle) {
 	}
 }
 
-export function deleteOneComment (token, parentId, id) {
+export function deleteOneComment (parentId, id) {
 	return (dispatch) => {
-		return api.deleteComment(token, id)
+		return api.deleteComment(id)
 			.then(() => {
 				dispatch(deleteComment(parentId, id))
 			})

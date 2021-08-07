@@ -31,26 +31,26 @@ const defaultData = {
   }
 }
 
-function getData (token) {
-  let data = db[token]  
+function getData () {
+  let data = db['token'] 
   if (data == null) {
-    data = db[token] = clone(defaultData)
+    data = db['token'] = clone(defaultData)
   }
   return data
 }
 
-function getByCategory (token, category) {
+function getByCategory (category) {
   return new Promise((res) => {
-    let posts = getData(token)
+    let posts = getData()
     let keys = Object.keys(posts)
     let filtered_keys = keys.filter(key => posts[key].category === category && !posts[key].deleted)
     res(filtered_keys.map(key => posts[key]))
   })
 }
 
-function get (token, id) {
+function get (id) {
   return new Promise((res) => {
-    const posts = getData(token)
+    const posts = getData()
     res(
       posts[id].deleted
         ? {}
@@ -59,9 +59,9 @@ function get (token, id) {
   })
 }
 
-function add (token, post) {
+function add (post) {
   return new Promise((res) => {
-    let posts = getData(token)
+    let posts = getData()
 
     posts[post.id] = {
       id: post.id,
@@ -81,9 +81,9 @@ function add (token, post) {
   })
 }
 
-function vote (token, id, option, user, toggle) {
+function vote (id, option, user, toggle) {
   return new Promise((res) => {
-    let posts = getData(token)
+    let posts = getData()
     post = posts[id]
     switch(option) {
         case "upVote":
@@ -115,17 +115,17 @@ function vote (token, id, option, user, toggle) {
   })
 }
 
-function disable (token, id) {
+function disable (id) {
     return new Promise((res) => {
-      let posts = getData(token)
+      let posts = getData()
       posts[id].deleted = true
       res(posts[id])
     })
 }
 
-function edit (token, id, post) {
+function edit (id, post) {
     return new Promise((res) => {
-        let posts = getData(token)
+        let posts = getData()
         for (prop in post) {
             posts[id][prop] = post[prop]
         }
@@ -133,8 +133,8 @@ function edit (token, id, post) {
     })
 }
 
-function incrementCommentCounter(token, id, count) {
-  const data = getData(token)
+function incrementCommentCounter(id, count) {
+  const data = getData()
   if (data[id]) {
     data[id].commentCount += count
   }

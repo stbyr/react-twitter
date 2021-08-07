@@ -30,26 +30,26 @@ const defaultData = {
   }
 }
 
-function getData (token) {
-  let data = db[token]
+function getData () {
+  let data = db['token']
   if (data == null) {
-    data = db[token] = clone(defaultData)
+    data = db['token'] = clone(defaultData)
   }
   return data
 }
 
-function getByParent (token, parentId) {
+function getByParent (parentId) {
   return new Promise((res) => {
-    let comments = getData(token)
+    let comments = getData()
     let keys = Object.keys(comments)
     filtered_keys = keys.filter(key => comments[key].parentId === parentId && !comments[key].deleted)
     res(filtered_keys.map(key => comments[key]))
   })
 }
 
-function add (token, comment) {
+function add (comment) {
   return new Promise((res) => {
-    let comments = getData(token)
+    let comments = getData()
 
     comments[comment.id] = {
       id: comment.id,
@@ -64,14 +64,14 @@ function add (token, comment) {
       dislikes: [],
     }
 
-    posts.incrementCommentCounter(token, comment.parentId, 1)
+    posts.incrementCommentCounter(comment.parentId, 1)
     res(comments[comment.id])
   })
 }
 
-function vote (token, id, option, user, toggle) {
+function vote (id, option, user, toggle) {
   return new Promise((res) => {
-    let comments = getData(token)
+    let comments = getData()
     comment = comments[id]
     switch(option) {
         case "upVote":
@@ -103,9 +103,9 @@ function vote (token, id, option, user, toggle) {
   })
 }
 
-function disableByParent (token, post) {
+function disableByParent (post) {
     return new Promise((res) => {
-        let comments = getData(token)
+        let comments = getData()
         keys = Object.keys(comments)
         filtered_keys = keys.filter(key => comments[key].parentId === post.id)
         filtered_keys.forEach(key => comments[key].parentDeleted = true)
@@ -113,18 +113,18 @@ function disableByParent (token, post) {
     })
 }
 
-function disable (token, id) {
+function disable (id) {
     return new Promise((res) => {
-      let comments = getData(token)
+      let comments = getData()
       comments[id].deleted = true
-      posts.incrementCommentCounter(token, comments[id].parentId, -1)
+      posts.incrementCommentCounter(comments[id].parentId, -1)
       res(comments[id])
     })
 }
 
-function edit (token, id, comment) {
+function edit (id, comment) {
     return new Promise((res) => {
-        let comments = getData(token)
+        let comments = getData()
         for (prop in comment) {
             comments[id][prop] = comment[prop]
         }

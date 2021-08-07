@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import '../styles/CreatePost.css'
 import { editComment } from '../actions/shared'
-import { token } from './App'
 import Redirecter from './Redirect'
 import NotFound from './NotFound'
 
@@ -18,7 +17,7 @@ function EditComment (props) {
 	const comms = useSelector((state) => state.comments)
 	const parendIds = Object.keys(comms).length ? Object.keys(comms) : []
 	const parendIdsMatch = parendIds.find(item => item === parentId)
-	const ids = Object.keys(comms).length ? Object.values(comms)[0] : []
+	const ids = Object.keys(comms).length ? comms[parentId] : [] 
 	const idsMatch = ids.find(item => item.id === id)
 
 	const helper = {
@@ -31,7 +30,7 @@ function EditComment (props) {
 	if ((!parendIdsMatch || !idsMatch) && user) {
 		return <NotFound />
 	} else if ((!parendIdsMatch || !idsMatch) && !user) {
-		return <Redirecter referrer="/notfound" />
+		return <Redirecter referrer="/login" />
 	} 
 
 	const handleChangeBody = (event) => {
@@ -39,7 +38,7 @@ function EditComment (props) {
 	}
 
 	const send = () => {
-		dispatch(editComment(token, id, parentId, { 
+		dispatch(editComment(id, parentId, { 
 		    timestamp: Date.now(),
 		    body: inputBody,
 		}))

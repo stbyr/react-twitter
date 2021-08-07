@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import '../styles/CreatePost.css'
 import { editPost } from '../actions/shared'
-import { token } from './App'
 import Redirecter from './Redirect'
 import NotFound from './NotFound'
 
@@ -38,7 +37,7 @@ function EditPost (props) {
 	}
 
 	const send = () => {
-		dispatch(editPost(token, id, { 
+		dispatch(editPost(id, { 
 		    title: inputTitle,
 		    body: inputBody,
 		}, category))

@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import '../styles/Login.css'
 import { setUser } from '../actions/shared'
-import { token } from './App'
 
 function Login () {
   	const dispatch = useDispatch()
@@ -17,7 +16,7 @@ function Login () {
 		if (!input) {
 			return alert('You must provide a username to login.')
 		}
-		dispatch(setUser(token, input))
+		dispatch(setUser(input))
 		localStorage.setItem('user', input)
 	}
 

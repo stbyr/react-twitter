@@ -4,7 +4,6 @@ import '../styles/CommentList.css'
 import Comment from './Comment.js'
 import { getAllCommentsByPost, addOneNewComment } from '../actions/shared.js'
 import { v4 as uuidv4 } from 'uuid'
-import { token } from './App'
 
 function CommentList (props) {
 	const [ formText, setFormText ] = useState('')
@@ -13,7 +12,7 @@ function CommentList (props) {
 	const user = useSelector((state) => state.loggedUser)
 
 	useEffect(() => {
-        dispatch(getAllCommentsByPost(token, id))
+        dispatch(getAllCommentsByPost(id))
     }, [dispatch, id])
 
     const comments = useSelector((state) => state.comments)
@@ -25,7 +24,7 @@ function CommentList (props) {
 
 	const submit = (event) => {
 		if (event.key === "Enter") {
-			dispatch(addOneNewComment(token, {
+			dispatch(addOneNewComment({
 				id: uuidv4(),
 				timestamp: Date.now(),
 				body: formText,

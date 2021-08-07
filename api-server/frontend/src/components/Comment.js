@@ -5,7 +5,6 @@ import '../styles/Comment.css'
 import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from 'react-icons/ai'
 import { BsThreeDots } from 'react-icons/bs'
 import { voteComment, deleteOneComment } from '../actions/shared.js'
-import { token } from './App'
 
 function Comment (props) {
     const [ editMenuHidden, setEditMenuHidden ] = useState(true)
@@ -17,7 +16,6 @@ function Comment (props) {
     const comment = comments[parentId].find((obj) => obj.id === id)
     const currentUser = useSelector((state) => state.loggedUser)
     const postIds = Object.keys(comments)
-    const commentIds = Object.values(comments)[0]
 
     const date = comment ? new Date(comment.timestamp).toLocaleDateString("en-US") : null 
     const time = comment ? new Date(comment.timestamp).toLocaleTimeString("en-US") : null 
@@ -31,7 +29,6 @@ function Comment (props) {
         } else if (currentUserDislikes) {
             setDislikeActive(true)
         } 
-
     }, [currentUserLikes, currentUserDislikes])
 
     const toggleMenu = (ev) => {
@@ -51,16 +48,16 @@ function Comment (props) {
 
         // untoggle like button
         if (likeActive) {
-            dispatch(voteComment(token, id, parentId, 'downVote', currentUser, true))
+            dispatch(voteComment(id, parentId, 'downVote', currentUser, true))
         } else if (!likeActive && !dislikeActive) {
-            dispatch(voteComment(token, id, parentId, 'upVote', currentUser, false))
+            dispatch(voteComment(id, parentId, 'upVote', currentUser, false))
         }  
         // if I activate like button but dislike button is already active: deactivate dislike button 
         else if (!likeActive && dislikeActive) {
             setDislikeActive(!dislikeActive)
             // remove username from dislike array 
-            dispatch(voteComment(token, id, parentId, 'upVote', currentUser, true))
-            dispatch(voteComment(token, id, parentId, 'upVote', currentUser, false))
+            dispatch(voteComment(id, parentId, 'upVote', currentUser, true))
+            dispatch(voteComment(id, parentId, 'upVote', currentUser, false))
         }
     }
 
@@ -70,18 +67,18 @@ function Comment (props) {
 
         //untoggle dislike button 
         if (dislikeActive) {
-            dispatch(voteComment(token, id, parentId, 'upVote', currentUser, true))
+            dispatch(voteComment(id, parentId, 'upVote', currentUser, true))
         } else if (!dislikeActive && !likeActive) { 
-            dispatch(voteComment(token, id, parentId, 'downVote', currentUser, false))
+            dispatch(voteComment(id, parentId, 'downVote', currentUser, false))
         } else if (!dislikeActive && likeActive) {
             setLikeActive(!likeActive)
-            dispatch(voteComment(token, id, parentId, 'downVote', currentUser, true))
-            dispatch(voteComment(token, id, parentId, 'downVote', currentUser, false))
+            dispatch(voteComment(id, parentId, 'downVote', currentUser, true))
+            dispatch(voteComment(id, parentId, 'downVote', currentUser, false))
         } 
     }
 
     const onDelete = () => {
-        dispatch(deleteOneComment(token, parentId, id)) 
+        dispatch(deleteOneComment(parentId, id)) 
     }
 
     return (
@@ -113,8 +110,8 @@ function Comment (props) {
                     {dislikeActive ? <AiFillDislike style={{ fill: '#F04437' }}/> : <AiOutlineDislike/>}
                 </div>
                 <div 
-                    className="btn" 
-                    onClick={toggleMenu} 
+                    className="btn"  
+                    onClick={toggleMenu}
                     tabIndex="0" 
                     onBlur={blurMenu} 
                     style={ 
@@ -134,7 +131,7 @@ function Comment (props) {
             </div>
             <div className="edit-menu-open" hidden={editMenuHidden}>
                 <ul>
-                    { postIds.find(id => id === parentId) && commentIds.find(comment => comment.id === id) 
+                    { postIds.find(id => id === parentId) 
                         ? <Link to={`/edit/comment/${parentId}/${id}`}>
                             <li>Edit comment</li>
                         </Link>

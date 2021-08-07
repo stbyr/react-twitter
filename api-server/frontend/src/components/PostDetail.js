@@ -5,7 +5,6 @@ import '../styles/Post.css'
 import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from 'react-icons/ai'
 import { BsThreeDots } from 'react-icons/bs'
 import { getOnePostById, votePost, deleteOnePost } from '../actions/shared.js'
-import { token } from './App'
 
 function PostDetail (props) {
     const [ editMenuHidden, setEditMenuHidden ] = useState(true)
@@ -14,6 +13,7 @@ function PostDetail (props) {
     const dispatch = useDispatch()
     const history = useHistory()
     const postId = props.id ? props.id : null
+    const postIds = Object.keys(useSelector((state) => state.postById))
 
     const postInfo = useSelector((state) => state.postById)
     const post = postInfo[postId]
@@ -24,7 +24,7 @@ function PostDetail (props) {
     const currentUserDislikes = post && postId && post['dislikes'].find(user => user === currentUser) ? true : false
 
     useEffect(() => {
-        dispatch(getOnePostById(token, postId))
+        dispatch(getOnePostById(postId))
         
         if (currentUserLikes) {
             setLikeActive(true)
@@ -37,7 +37,8 @@ function PostDetail (props) {
     const date = (post && postId) ? new Date(post.timestamp).toLocaleDateString("en-US") : null
     const time = (post && postId) ? new Date(post.timestamp).toLocaleTimeString("en-US") : null 
 
-    const toggleMenu = () => {
+    const toggleMenu = (ev) => {
+        ev.preventDefault()
         setEditMenuHidden(!editMenuHidden)
     }
 
@@ -53,16 +54,16 @@ function PostDetail (props) {
 
         // untoggle like button
         if (likeActive) {
-            dispatch(votePost(token, postId, 'downVote', category, currentUser, true))
+            dispatch(votePost(postId, 'downVote', category, currentUser, true))
         } else if (!likeActive && !dislikeActive) {
-            dispatch(votePost(token, postId, 'upVote', category, currentUser, false))
+            dispatch(votePost(postId, 'upVote', category, currentUser, false))
         }  
         // if I activate like button but dislike button is already active: deactivate dislike button 
         else if (!likeActive && dislikeActive) {
             setDislikeActive(!dislikeActive)
             // remove username from dislike array 
-            dispatch(votePost(token, postId, 'upVote', category, currentUser, true))
-            dispatch(votePost(token, postId, 'upVote', category, currentUser, false))
+            dispatch(votePost(postId, 'upVote', category, currentUser, true))
+            dispatch(votePost(postId, 'upVote', category, currentUser, false))
         }
     }
 
@@ -72,18 +73,18 @@ function PostDetail (props) {
 
         //untoggle dislike button 
         if (dislikeActive) {
-            dispatch(votePost(token, postId, 'upVote', category, currentUser, true))
+            dispatch(votePost(postId, 'upVote', category, currentUser, true))
         } else if (!dislikeActive && !likeActive) { 
-            dispatch(votePost(token, postId, 'downVote', category, currentUser, false))
+            dispatch(votePost(postId, 'downVote', category, currentUser, false))
         } else if (!dislikeActive && likeActive) {
             setLikeActive(!likeActive)
-            dispatch(votePost(token, postId, 'downVote', category, currentUser, true))
-            dispatch(votePost(token, postId, 'downVote', category, currentUser, false))
+            dispatch(votePost(postId, 'downVote', category, currentUser, true))
+            dispatch(votePost(postId, 'downVote', category, currentUser, false))
         } 
     }
 
     const onDelete = () => {
-        dispatch(deleteOnePost(token, postId, category))
+        dispatch(deleteOnePost(postId, category))
         history.push('/') 
     }
 
@@ -141,11 +142,22 @@ function PostDetail (props) {
             </div>
             <div className="edit-menu-open" hidden={editMenuHidden}>
                 <ul>
-                    <Link to={`/edit/post/${postId}`}>
-                        <li>Edit post</li>
-                    </Link>
+                    { postIds.find(id => id === postId) 
+                        ? <Link to={{
+                            pathname: `/edit/post/${postId}`,
+                            state: {
+                                title: post.title,
+                                body: post.body,
+                            }
+                        }}>
+                            <li>Edit post</li>
+                        </Link>
+                        : <Link to="notfound">
+                            <li>Edit post</li>
+                        </Link>
+                    }   
                     <li onClick={onDelete}>Delete post</li>
-                </ul>   
+                </ul>    
             </div>
         </div>
         ) : null 

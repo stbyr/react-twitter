@@ -49,3 +49,8 @@ The following endpoints are available:
 | `POST /comments/:id` | Used for voting on a comment. | **option** - [String]: Either `"upVote"` or `"downVote"`.  |
 | `PUT /comments/:id` | Edit the details of an existing comment. |  |
 | `DELETE /comments/:id` | Sets a comment's deleted flag to `true`. |  | 
+
+## Unsolved Error Message
+
+When navigating to a page on which you can edit a post or comment, sometimes there will be an error message saying "Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function."
+This is caused by a setTimeout in the components that lead to the edit pages: Post.js, PostDetail.js and Comment.js. A setTimeout function was used in these three components to postpone onBlur events so that they fire after onClick events on the button with the three dots. I didn't find a good solution to reverse the event order and I wasn't able to cancel the setTimeout function after these components unmounted. I am open for suggestions though!

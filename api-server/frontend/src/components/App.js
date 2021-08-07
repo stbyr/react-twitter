@@ -9,9 +9,6 @@ import TopMenu from './TopMenu'
 import Login from './Login'
 import NotFound from './NotFound'
 
-export const token = 'XYZ'
-localStorage.setItem('token', token)
-
 export function App () {
   	return (
 	   	<Router>	

@@ -5,7 +5,6 @@ import { getAllCategories } from '../actions/shared.js'
 import { setCategory } from '../actions/categories.js'
 import { Tabs, Tab, AppBar, ThemeProvider } from '@material-ui/core'
 import theme from '../theme.js'
-import { token } from './App'
 
 function Categories (props) {
 	const [ value, setValue ] = React.useState(0)
@@ -14,7 +13,7 @@ function Categories (props) {
 	useEffect(() => {
 		let mounted = true 
         if (mounted) {
-            dispatch(getAllCategories(token))
+            dispatch(getAllCategories())
         }
         return () => mounted = false;
 	}, [dispatch])

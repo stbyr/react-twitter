@@ -5,7 +5,6 @@ import '../styles/Post.css'
 import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from 'react-icons/ai'
 import { BsThreeDots } from 'react-icons/bs'
 import { getOnePostById, votePost, deleteOnePost } from '../actions/shared.js'
-import { token } from './App'
 
 function Post (props) {
     const [ editMenuHidden, setEditMenuHidden ] = useState(true)
@@ -24,7 +23,7 @@ function Post (props) {
     const currentUserDislikes = post && postId && post['dislikes'].find(user => user === currentUser) ? true : false
 
     useEffect(() => {
-        dispatch(getOnePostById(token, postId))
+        dispatch(getOnePostById(postId))
         
         if (currentUserLikes) {
             setLikeActive(true)
@@ -54,16 +53,16 @@ function Post (props) {
 
         // untoggle like button
         if (likeActive) {
-            dispatch(votePost(token, postId, 'downVote', category, currentUser, true))
+            dispatch(votePost(postId, 'downVote', category, currentUser, true))
         } else if (!likeActive && !dislikeActive) {
-            dispatch(votePost(token, postId, 'upVote', category, currentUser, false))
+            dispatch(votePost(postId, 'upVote', category, currentUser, false))
         }  
         // if I activate like button but dislike button is already active: deactivate dislike button 
         else if (!likeActive && dislikeActive) {
             setDislikeActive(!dislikeActive)
             // remove username from dislike array 
-            dispatch(votePost(token, postId, 'upVote', category, currentUser, true))
-            dispatch(votePost(token, postId, 'upVote', category, currentUser, false))
+            dispatch(votePost(postId, 'upVote', category, currentUser, true))
+            dispatch(votePost(postId, 'upVote', category, currentUser, false))
         }
     }
 
@@ -73,18 +72,18 @@ function Post (props) {
 
         //untoggle dislike button 
         if (dislikeActive) {
-            dispatch(votePost(token, postId, 'upVote', category, currentUser, true))
+            dispatch(votePost(postId, 'upVote', category, currentUser, true))
         } else if (!dislikeActive && !likeActive) { 
-            dispatch(votePost(token, postId, 'downVote', category, currentUser, false))
+            dispatch(votePost(postId, 'downVote', category, currentUser, false))
         } else if (!dislikeActive && likeActive) {
             setLikeActive(!likeActive)
-            dispatch(votePost(token, postId, 'downVote', category, currentUser, true))
-            dispatch(votePost(token, postId, 'downVote', category, currentUser, false))
+            dispatch(votePost(postId, 'downVote', category, currentUser, true))
+            dispatch(votePost(postId, 'downVote', category, currentUser, false))
         } 
     }
 
     const onDelete = () => {
-        dispatch(deleteOnePost(token, postId, category))
+        dispatch(deleteOnePost(postId, category))
     }
 
     return (
@@ -115,7 +114,6 @@ function Post (props) {
                         >
                             {dislikeActive ? <AiFillDislike style={{ fill: '#F04437' }}/> : <AiOutlineDislike/>}
                         </div>
-
                         <div 
                             className="btn dots" 
                             onClick={toggleMenu} 
@@ -129,9 +127,8 @@ function Post (props) {
                                     : {display: 'none'}
                             }
                         >
-                          	<BsThreeDots />
+                            <BsThreeDots />
                         </div>
-
                     </div>
                     <div className="post-main">
                         <h1 className="title">{ post.title }</h1>

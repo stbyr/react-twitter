@@ -5,7 +5,6 @@ import '../styles/TopMenu.css'
 import { BiLeftArrowAlt } from 'react-icons/bi'
 import { BsPerson } from 'react-icons/bs'
 import { getUser, setUser } from '../actions/shared'
-import { token } from './App'
 
 function TopMenu () {
   	const location = useLocation()
@@ -13,12 +12,12 @@ function TopMenu () {
   	const user = localStorage.getItem('user')
 
   	useEffect(() => {
-		dispatch(getUser(token))
+		dispatch(getUser())
 	}, [dispatch])
 
 	const logout = () => {
 		localStorage.setItem('user', '')
-		dispatch(setUser(token, ''))
+		dispatch(setUser(''))
 	}
 
   	return (
