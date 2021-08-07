@@ -1,22 +1,51 @@
-# Readable API Server
+# Content and Comment Web App
 
-This is the starter project for the final assessment project for Udacity's Redux course where you will build a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
+In this content and comment web app users are able to post content to three predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
 
-This repository includes the code for the backend API Server that you'll use to develop and interact with the front-end portion of the project.
+The App was developed using React, Redux and a backend API Server to interact with the frontend. The frontend modules consist of functional components using React Hooks. The design is responsive so that the app can be used on desktop or mobile screens.
 
-## Start Developing
+The app is an optional project of the Udacity React Nanodegree. The starter code provided by Udacity, which mostly includes the backend server, can be found [here](https://github.com/udacity/reactnd-project-readable-starter). All modifications to the backend server code as well as the entire frontend and design are developed by Stefanie Beyer, Berlin 2021.
 
-To get started developing right away:
+## Installation and launching the App
 
-* Install and start the API server
-    - `cd api-server`
-    - `npm install`
-    - `node server`
-* In another terminal window, use Create React App to scaffold out the front-end
-    - `create-react-app frontend`
-    - `cd frontend`
-    - `npm start`
+You must have npm (or yarn) installed on your computer.
+Install all project dependencies:
+
+```bash
+npm install 
+````
+Start the React App:
+
+```bash 
+npm start
+````
+
+## Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 ## API Server
 
-Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+To install and start the API server, run the following commands in the directory "api-server" in another terminal window:
+* `cd api-server`
+* `npm install`
+* `node server`
+
+### API Endpoint
+
+The following endpoints are available:
+
+| Endpoints       | Usage          |          
+|-----------------|----------------|
+| `GET /categories` | Get all of the categories available for the app. List is found in `categories.js`. |  |
+| `GET /:category/posts` | Get all of the posts for a particular category. |  |
+| `POST /posts` | Add a new post. |  |
+| `GET /posts/:id` | Get the details of a single post. | |
+| `POST /posts/:id` | Used for voting on a post. | **option** - [String]: Either `"upVote"` or `"downVote"`. |
+| `PUT /posts/:id` | Edit the details of an existing post. | **title** - [String] <br> **body** - [String] |
+| `DELETE /posts/:id` | Sets the deleted flag for a post to 'true'. <br> Sets the parentDeleted flag for all child comments to 'true'. | |
+| `GET /posts/:id/comments` | Get all the comments for a single post. | |
+| `POST /comments` | Add a comment to a post. |  |
+| `POST /comments/:id` | Used for voting on a comment. | **option** - [String]: Either `"upVote"` or `"downVote"`.  |
+| `PUT /comments/:id` | Edit the details of an existing comment. |  |
+| `DELETE /comments/:id` | Sets a comment's deleted flag to `true`. |  | 

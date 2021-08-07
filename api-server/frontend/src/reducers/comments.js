@@ -44,7 +44,7 @@ export function comments (state = {}, action) {
 					    timestamp: action.newComment.timestamp,
 					    body: action.newComment.body,
 					    author: action.newComment.author,
-					    voteScore: 1,
+					    voteScore: 0,
 					    deleted: false,
 					    parentDeleted: false,
 					    likes: [],

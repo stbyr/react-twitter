@@ -18,13 +18,6 @@ export const setUser = (token, user) => axios.post('http://localhost:3001/user',
 	}
 });
 
-/* 
-export const fetchPosts = (token) => axios.get('http://localhost:3001/posts', {
-	headers: {
-		'Authorization': token
-	}
-});*/ 
-
 export const fetchPostsByCategory = (token, category) => axios.get(`http://localhost:3001/${category}/posts`, {
 	headers: {
 		'Authorization': token
@@ -42,12 +35,6 @@ export const fetchCommentsByPost = (token, parentId) => axios.get(`http://localh
 		'Authorization': token
 	}
 });
-/*
-export const fetchComment = (token, id) => axios.get(`http://localhost:3001/comments/${id}/`, {
-	headers: {
-		'Authorization': token
-	}
-});*/ 
 
 export const postNewPost = (token, newPost) => axios.post('http://localhost:3001/posts', newPost, {
 		headers: {

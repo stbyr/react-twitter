@@ -139,7 +139,7 @@ function Post (props) {
                         <p className="body">{ post.body }</p>
                     </div>
                     <div className="post-footer">
-                        <p>{ post.voteScore } { post.voteScore === 1 ? 'vote' : 'votes' } · { post.commentCount } { post.commentCount === '1' ? 'comment' : 'comments' }</p>
+                        <p>{ post.voteScore } { post.voteScore === 1 ? 'vote' : 'votes' } · { post.commentCount } { post.commentCount === 1 ? 'comment' : 'comments' }</p>
                     </div>
                 </div>
             </Link>

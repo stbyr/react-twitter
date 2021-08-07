@@ -38,20 +38,7 @@ export function setUser (token, user) {
 				console.log(e.message)
 			})
 	}
-}
-
-/*
-export function getAllPosts (token) {
-	return (dispatch) => {
-		return api.fetchPosts(token)
-			.then(({ data }) => {
-				dispatch(getPosts(data))
-			})
-			.catch((e) => {
-				console.log(e.message)
-			})
-	}
-}*/ 
+} 
 
 export function getAllPostsByCategory (token, category) {
 	return (dispatch) => {
@@ -88,18 +75,6 @@ export function getAllCommentsByPost (token, parentId) {
 			})
 	}
 }
-/* 
-export function getOneComment (token, id) {
-	return (dispatch) => {
-		return api.fetchComment(token, id)
-			.then(({ data }) => {
-				dispatch(getComment(data))
-			})
-			.catch((e) => {
-				console.log(e.message)
-			})
-	}
-} */ 
 
 export function addOneNewPost (token, newPost) {
 	return (dispatch) => {
@@ -196,16 +171,3 @@ export function deleteOneComment (token, parentId, id) {
 			})
 	}
 }
-
-/*
-export const getAllCategories = () => async (dispatch) => {
-  try {
-    const { data } = await api.fetchCategories();
-
-    dispatch(getCategories(data));
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-*/
-

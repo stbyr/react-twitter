@@ -14,6 +14,9 @@ function Login () {
 	}
 
 	const send = () => {
+		if (!input) {
+			return alert('You must provide a username to login.')
+		}
 		dispatch(setUser(token, input))
 		localStorage.setItem('user', input)
 	}

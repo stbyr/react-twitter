@@ -47,17 +47,6 @@ function getByParent (token, parentId) {
   })
 }
 
-function get (token, id) {
-  return new Promise((res) => {
-    const comments = getData(token)
-    res(
-      comments[id].deleted || comments[id].parentDeleted
-        ? {}
-        : comments[id]
-      )
-  })
-}
-
 function add (token, comment) {
   return new Promise((res) => {
     let comments = getData(token)
@@ -68,7 +57,7 @@ function add (token, comment) {
       body: comment.body,
       author: comment.author,
       parentId: comment.parentId,
-      voteScore: 1,
+      voteScore: 0,
       deleted: false,
       parentDeleted: false,
       likes: [],
@@ -144,7 +133,6 @@ function edit (token, id, comment) {
 }
 
 module.exports = {
-  get,
   getByParent,
   add,
   vote,

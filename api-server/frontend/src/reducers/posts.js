@@ -132,7 +132,7 @@ export function postsByCategory (state = {}, action) {
 					    body: action.newPost.body,
 					    author: action.newPost.author,
 					    category: action.newPost.category,
-					    voteScore: 1,
+					    voteScore: 0,
 					    deleted: false,
 					    commentCount: 0,
 					    likes: [],

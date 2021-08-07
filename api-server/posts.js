@@ -59,15 +59,6 @@ function get (token, id) {
   })
 }
 
-function getAll (token) {
-  return new Promise((res) => {
-    const posts = getData(token)
-    let keys = Object.keys(posts)
-    let filtered_keys = keys.filter(key => !posts[key].deleted)
-    res(filtered_keys.map(key => posts[key]))
-  })
-}
-
 function add (token, post) {
   return new Promise((res) => {
     let posts = getData(token)
@@ -79,7 +70,7 @@ function add (token, post) {
       body: post.body,
       author: post.author,
       category: post.category,
-      voteScore: 1,
+      voteScore: 0,
       deleted: false,
       commentCount: 0,
       likes: [],
@@ -151,12 +142,10 @@ function incrementCommentCounter(token, id, count) {
 
 module.exports = {
   get,
-  getAll,
   getByCategory,
   add,
   vote,
   disable,
   edit,
-  getAll,
   incrementCommentCounter
 }
