@@ -8,24 +8,77 @@ const categories = require('./categories')
 const posts = require('./posts')
 const comments = require('./comments')
 const user = require('./user')
+const mysql = require('mysql')
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
 const app = express()
 
 app.use(express.static('public'))
 app.use(cors())
 
-/*app.use((req, res, next) => {
-  const token = req.get('Authorization')
+// database for login data
+const db = mysql.createConnection({
+  user: "root",
+  host: "localhost",
+  password: "password",
+  database: "usersdb",
+})
 
-  if (token) {
-    req.token = token
-    next()
-  } else {
-    res.status(403).send({
-      error: 'Please provide an Authorization header'
-    })
-  }
-})*/
+app.post('/register', bodyParser.json(), (req, res) => {
+  const username = req.body.username
+  const password = req.body.password
+
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    db.query(
+      "SELECT * FROM users WHERE username = ?",
+      username, 
+      (err, result) => {
+        if (err) {
+          res.send({ err: err })
+        } 
+          
+        if (result.length > 0) {
+          res.send({ message: "This username already exists. Please choose another one." })
+        } else {
+          db.query(
+            "INSERT INTO users (username, password) VALUES (?, ?)", 
+            [username, hash], 
+            (err, result) => {
+              console.log(err)
+              res.send(result)
+            }
+          )}
+      })
+  })
+})
+
+app.post('/login', bodyParser.json(), (req, res) => {
+  const username = req.body.username
+  const password = req.body.password
+
+  db.query(
+    "SELECT * FROM users WHERE username = ?",
+    username, 
+    (err, result) => {
+      if (err) {
+        res.send({ err: err })
+      } 
+        
+      if (result.length > 0) {
+        bcrypt.compare(password, result[0].password, (error, response) => {
+          if (response) {
+            res.send(result)
+          } else {
+            res.send({ message: "Wrong username/password combination." })
+          }
+        })
+      } else {
+        res.send({ message: "User doesn't exist." })
+      }
+    }
+  )
+})
 
 app.get('/categories', (req, res) => {
     categories.getAll()

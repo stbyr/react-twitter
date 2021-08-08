@@ -22,7 +22,7 @@ function TopMenu () {
 
   	return (
 	    <div className="top-menu-container">
-	    	{ location.pathname !== "/" && location.pathname !== "/login" ? (
+	    	{ location.pathname !== "/" && location.pathname !== "/login" && location.pathname !== "/register" ? (
 	    		<Link to="/" className="back">
 				    <BiLeftArrowAlt style={{ 
 				    	fontSize: '26px',
@@ -33,7 +33,7 @@ function TopMenu () {
 			    </Link>
 			    ) : <BiLeftArrowAlt style={{ fill: '#ED2515' }} /> 
 			}
-		    { location.pathname !== "/login" ? (
+		    { location.pathname !== "/login" && location.pathname !== "/register" ? (
 			    <div className="login">
 			    	<BsPerson style={{ 
 				    	fontSize: '26px',

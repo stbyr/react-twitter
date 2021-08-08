@@ -7,6 +7,7 @@ import EditPost from './EditPost'
 import EditComment from './EditComment'
 import TopMenu from './TopMenu'
 import Login from './Login'
+import Register from './Register'
 import NotFound from './NotFound'
 
 export function App () {
@@ -22,6 +23,7 @@ export function App () {
 			      		<Route path="/edit/post/:id" component={EditPost} />
 			      		<Route path="/edit/comment/:parentId/:id" component={EditComment} />
 			      		<Route path="/login" component={Login} />
+			      		<Route path="/register" component={Register} />
 			      		<Route path="/notfound" component={NotFound} />
 					    <Route component={NotFound} />
 			      	</Switch>

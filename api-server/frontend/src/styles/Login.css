@@ -1,3 +1,7 @@
+.create-container {
+	position: relative;
+}
+
 .create-container h1 {
 	margin: 30px 10px 0px 10px;
 	text-align: center;
@@ -14,11 +18,11 @@
 
 .input-field-login {
 	display: flex;
-	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .input-field-login input {
-	margin-bottom: 20px;
 	width: 60%;
 }
 
@@ -29,5 +33,19 @@
 }
 
 .link-login button {
-	margin: 0px 0px 30px 10px;
+	margin: 50px 0px 75px 0px;
+}
+
+#register-link {
+	margin: 0 auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 10px;
+	text-align: center;
+	font-size: 16px;
+}
+
+#register-link a {
+	color: #ED2515;
 }
