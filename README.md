@@ -4,7 +4,7 @@ In this content and comment web app users are able to post content to three pred
 
 The App was developed using React, Redux and a backend API Server to interact with the frontend. The frontend modules consist of functional components using React Hooks. The design is responsive so that the app can be used on desktop or mobile screens.
 
-The app is an optional project of the Udacity React Nanodegree. The starter code provided by Udacity, which mostly includes the backend server, can be found [here](https://github.com/udacity/reactnd-project-readable-starter). All modifications to the backend server code as well as the entire frontend and design are developed by Stefanie Beyer, Berlin 2021.
+The app is an optional project of the Udacity React Nanodegree. The starter code provided by Udacity, which mostly includes the backend server, can be found [here](https://github.com/udacity/reactnd-project-readable-starter). All modifications to the backend server code as well as the entire frontend and design are developed by Stefanie Beyer, Berlin 2021. She also added a login / register system where the data gets stores in a MySQL database. Passwords are hashed via the bcrypt library.
 
 ## Installation and launching the App
 
