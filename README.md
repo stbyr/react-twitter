@@ -50,6 +50,10 @@ The following endpoints are available:
 | `PUT /comments/:id` | Edit the details of an existing comment. |  |
 | `DELETE /comments/:id` | Sets a comment's deleted flag to `true`. |  | 
 
+## Video demonstration
+
+For a short video demonstration, click [here](https://www.youtube.com/watch?v=m97L8NIy5i0).
+
 ## Unsolved Error Message
 
 When navigating to a page on which you can edit a post or comment, sometimes there will be an error message saying "Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function."
