@@ -13,7 +13,7 @@ body {
   background: #000;
   width: min(60%, 800px);
   min-width: 460px;
-  min-height: 100vh;
+  min-height: 50vh;
   position: relative;
 }
 
