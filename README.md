@@ -20,6 +20,10 @@ Start the React App:
 npm start
 ````
 
+## Video demonstration
+
+[![Watch the video](https://img.youtube.com/vi/m97L8NIy5i0/maxresdefault.jpg)](https://www.youtube.com/watch?v=m97L8NIy5i0)
+
 ## Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
@@ -49,10 +53,6 @@ The following endpoints are available:
 | `POST /comments/:id` | Used for voting on a comment. | **option** - [String]: Either `"upVote"` or `"downVote"`.  |
 | `PUT /comments/:id` | Edit the details of an existing comment. |  |
 | `DELETE /comments/:id` | Sets a comment's deleted flag to `true`. |  | 
-
-## Video demonstration
-
-For a short video demonstration, click [here](https://www.youtube.com/watch?v=m97L8NIy5i0).
 
 ## Unsolved Error Message
 
