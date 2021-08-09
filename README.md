@@ -23,7 +23,7 @@ npm start
 ## Video demonstration
 
 Click here for a short video demonstration of the app:
-[![Watch the video](https://img.youtube.com/vi/m97L8NIy5i0/maxresdefault.jpg)](https://www.youtube.com/watch?v=m97L8NIy5i0)
+[![Watch the video](https://img.youtube.com/vi/rD14PgQXuCk/maxresdefault.jpg)](https://www.youtube.com/watch?v=rD14PgQXuCk)
 
 ## Create React App
 
